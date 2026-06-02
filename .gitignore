@@ -1,0 +1,5 @@
+_preview/
+index_v1.html
+*.code-workspace
+.DS_Store
+Thumbs.db
