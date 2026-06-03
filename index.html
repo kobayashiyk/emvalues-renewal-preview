@@ -18,7 +18,7 @@
   :root{
     --paper:#FBF8F3; --paper-2:#F4EEE3; --paper-3:#EADFCF;
     --ink:#26221C; --ink-soft:#6B6258; --ink-faint:#79705F;
-    --ai:#27486B; --ai-deep:#1C3650;
+    --ai:#2C6E54; --ai-deep:#1E4F3C;
     --clay:#A8694A; --clay-deep:#985A3C; --clay-soft:#C98A6B;
     --line:#E2D8C8; --line-on-dark:rgba(244,238,227,.16);
     --ink-rev:#EFE8DC; --white:#FFFFFF;
@@ -200,13 +200,25 @@
   .news-arw{color:var(--ink-faint);transition:transform .3s var(--ease),color .3s;}
   .news-item:hover .news-arw{color:var(--ai);transform:translateX(4px);}
   /* PR thumbs */
-  .pr-sub{font-family:var(--eng);font-size:12px;letter-spacing:.24em;color:var(--clay-deep);text-transform:uppercase;margin-bottom:22px;}
-  .pr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-  .pr-card .thumb{aspect-ratio:16/10;border-radius:4px;overflow:hidden;background-size:cover;background-position:center;margin-bottom:16px;}
-  .pr-card .thumb span{display:block;width:100%;height:100%;background:inherit;transition:transform .6s var(--ease);}
-  .pr-card:hover .thumb span{transform:scale(1.03);}
-  .pr-card .d{font-family:var(--eng);font-size:13px;color:var(--ink-faint);letter-spacing:.06em;}
-  .pr-card h4{font-family:var(--mincho);font-weight:500;font-size:15px;color:var(--ink);line-height:1.7;margin-top:6px;}
+  /* コラム grid（サムネイルは今後作成 — プレースホルダ表示） */
+  .col-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-bottom:16px;}
+  .col-card{display:block;}
+  .col-thumb{aspect-ratio:16/11;border-radius:4px;background:var(--paper-2);border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;margin-bottom:14px;transition:transform .3s var(--ease),box-shadow .3s var(--ease),background .3s var(--ease);}
+  .col-card:hover .col-thumb{background:var(--paper-3);transform:translateY(-3px);box-shadow:0 16px 32px -24px rgba(38,34,28,.55);}
+  .col-thumb .ph-ic{color:var(--ai);opacity:.45;}
+  .col-thumb .ph-tx{font-family:var(--eng);font-size:9.5px;letter-spacing:.18em;color:var(--ink-faint);text-transform:uppercase;}
+  .col-cat{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;letter-spacing:.06em;color:var(--ai);}
+  .col-cat i{width:5px;height:5px;border-radius:50%;background:var(--ai);display:inline-block;flex:none;}
+  .col-card h4{font-family:var(--mincho);font-weight:500;font-size:15px;color:var(--ink);line-height:1.6;margin:8px 0 7px;transition:color .2s;}
+  .col-card:hover h4{color:var(--ai);}
+  .col-card .col-date{font-family:var(--eng);font-size:12px;color:var(--ink-faint);letter-spacing:.06em;}
+  .col-note{font-size:12.5px;color:var(--ink-faint);font-weight:300;margin-top:4px;}
+  /* CMS編集の案内 */
+  .cms-note{margin-top:44px;background:rgba(44,110,84,.06);border:1px solid rgba(44,110,84,.22);border-radius:5px;padding:20px 26px;display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap;}
+  .cms-note p{font-size:14px;color:var(--ink-soft);line-height:1.7;max-width:50em;}
+  .cms-note b{color:var(--ai);font-weight:600;}
+  .cms-note .btn-cms{background:var(--ai);color:#fff;padding:12px 22px;border-radius:2px;font-size:13.5px;letter-spacing:.04em;white-space:nowrap;transition:background .25s;}
+  .cms-note .btn-cms:hover{background:var(--ai-deep);color:#fff;}
 
   /* ---- company (dark) ---- */
   #company{background:var(--paper-3);}
@@ -267,7 +279,8 @@
     .phil-photo{aspect-ratio:16/11;}
     .phil-index{display:none;}
     .comp-grid,.contact-grid{grid-template-columns:1fr;}
-    .pr-grid{grid-template-columns:1fr;}
+    .col-grid{grid-template-columns:1fr 1fr;}
+    .cms-note{flex-direction:column;align-items:flex-start;}
     .news-item{grid-template-columns:auto 1fr;row-gap:4px;}
     .news-item .news-arw{display:none;}
     .news-cat{grid-row:1;grid-column:2;justify-self:end;}
@@ -294,7 +307,7 @@
       <nav class="menu" aria-label="メインナビゲーション">
         <a class="mi" href="#services">提供サービス</a>
         <a class="mi" href="#philosophy">自社の考え</a>
-        <a class="mi" href="#news">広報PR</a>
+        <a class="mi" href="#news">お知らせ・コラム</a>
         <a class="mi" href="#company">会社概要</a>
         <a class="navcta" href="#contact">お問い合わせ</a>
       </nav>
@@ -311,7 +324,7 @@
       <button class="dclose" data-close aria-label="メニューを閉じる">×</button>
       <a href="#services">提供サービス<span class="en">Services</span></a>
       <a href="#philosophy">自社の考え<span class="en">Philosophy</span></a>
-      <a href="#news">広報PRコンテンツ<span class="en">News &amp; PR</span></a>
+      <a href="#news">お知らせ・コラム<span class="en">News &amp; Column</span></a>
       <a href="#company">会社概要<span class="en">Company</span></a>
       <a href="#contact">お問い合わせ<span class="en">Contact</span></a>
     </div>
@@ -423,24 +436,17 @@
     </div>
   </section>
 
-  <!-- NEWS / PR -->
+  <!-- NEWS & COLUMN -->
   <section id="news" class="pad-md">
     <div class="wrap">
+      <!-- お知らせ -->
       <div class="news-head reveal">
         <div>
-          <span class="sec-tag">News &amp; PR</span>
-          <h2 style="font-family:var(--mincho);font-weight:600;font-size:clamp(26px,3.4vw,38px);color:var(--ink);letter-spacing:.03em;">広報PRコンテンツ・<span style="white-space:nowrap">お知らせ</span></h2>
+          <span class="sec-tag">News</span>
+          <h2 style="font-family:var(--mincho);font-weight:600;font-size:clamp(26px,3.4vw,38px);color:var(--ink);letter-spacing:.03em;">お知らせ</h2>
         </div>
-        <a href="#" class="link-u">記事一覧を見る</a>
+        <a href="#" class="link-u">お知らせ一覧</a>
       </div>
-
-      <div class="news-search reveal">
-        <input type="search" placeholder="記事をさがす" aria-label="記事を検索" />
-        <span class="ic" aria-hidden="true">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="7" cy="7" r="5"/><line x1="11" y1="11" x2="15" y2="15"/></svg>
-        </span>
-      </div>
-
       <div class="news-list reveal">
         <a href="#" class="news-item">
           <span class="news-date">2026.05.28</span>
@@ -449,45 +455,72 @@
           <span class="news-arw" aria-hidden="true">→</span>
         </a>
         <a href="#" class="news-item">
-          <span class="news-date">2026.05.14</span>
-          <span class="news-cat"><i aria-hidden="true"></i>コラム</span>
-          <span class="news-title">広報を「経営機能」として設計するということ</span>
-          <span class="news-arw" aria-hidden="true">→</span>
-        </a>
-        <a href="#" class="news-item">
-          <span class="news-date">2026.04.30</span>
-          <span class="news-cat"><i aria-hidden="true"></i>コラム</span>
-          <span class="news-title">メディアに取り上げられるPRストーリーの作り方</span>
+          <span class="news-date">2026.04.20</span>
+          <span class="news-cat ai"><i aria-hidden="true"></i>お知らせ</span>
+          <span class="news-title">新しい支援プランのご案内を公開しました</span>
           <span class="news-arw" aria-hidden="true">→</span>
         </a>
         <a href="#" class="news-item">
           <span class="news-date">2026.04.12</span>
-          <span class="news-cat ai"><i aria-hidden="true"></i>PR実績</span>
-          <span class="news-title">支援先企業の取り組みがビジネスメディアに掲載されました</span>
+          <span class="news-cat ai"><i aria-hidden="true"></i>お知らせ</span>
+          <span class="news-title">支援先企業の取り組みがメディアに掲載されました</span>
           <span class="news-arw" aria-hidden="true">→</span>
         </a>
       </div>
 
-      <p class="pr-sub reveal">Pick Up — 広報PR実績</p>
-      <div class="pr-grid reveal">
-        <a href="#" class="pr-card">
-          <div class="thumb" style="background-color:var(--paper-3);background-image:url('assets/site-news.jpg');"><span></span></div>
-          <div class="d">2026.04.12</div>
-          <h4>支援先の取り組みがメディア掲載</h4>
+      <!-- コラム -->
+      <div class="news-head reveal" style="margin-top:60px;">
+        <div>
+          <span class="sec-tag">Column</span>
+          <h2 style="font-family:var(--mincho);font-weight:600;font-size:clamp(26px,3.4vw,38px);color:var(--ink);letter-spacing:.03em;">コラム</h2>
+        </div>
+        <a href="#" class="link-u">コラム一覧</a>
+      </div>
+      <div class="col-grid reveal">
+        <a href="#" class="col-card">
+          <div class="col-thumb">
+            <svg class="ph-ic" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2"/><circle cx="8.5" cy="10" r="1.7"/><path d="M3.5 17l4.5-4.5 3.5 3.5 3.5-3.5 5.5 5.5"/></svg>
+            <span class="ph-tx">Coming soon</span>
+          </div>
+          <span class="col-cat"><i aria-hidden="true"></i>コラム</span>
+          <h4>広報を「経営機能」として設計するということ</h4>
+          <span class="col-date">2026.05.14</span>
         </a>
-        <a href="#" class="pr-card">
-          <div class="thumb" style="background-color:var(--paper-3);background-image:url('assets/site-meeting.jpg');"><span></span></div>
-          <div class="d">2026.03.20</div>
-          <h4>セミナー登壇のお知らせと当日レポート</h4>
+        <a href="#" class="col-card">
+          <div class="col-thumb">
+            <svg class="ph-ic" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2"/><circle cx="8.5" cy="10" r="1.7"/><path d="M3.5 17l4.5-4.5 3.5 3.5 3.5-3.5 5.5 5.5"/></svg>
+            <span class="ph-tx">Coming soon</span>
+          </div>
+          <span class="col-cat"><i aria-hidden="true"></i>コラム</span>
+          <h4>メディアに取り上げられるPRストーリーの作り方</h4>
+          <span class="col-date">2026.04.30</span>
         </a>
-        <a href="#" class="pr-card">
-          <div class="thumb" style="background-color:var(--paper-3);background-image:url('assets/site-laptop.jpg');"><span></span></div>
-          <div class="d">2026.02.28</div>
-          <h4>支援事例インタビューを公開しました</h4>
+        <a href="#" class="col-card">
+          <div class="col-thumb">
+            <svg class="ph-ic" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2"/><circle cx="8.5" cy="10" r="1.7"/><path d="M3.5 17l4.5-4.5 3.5 3.5 3.5-3.5 5.5 5.5"/></svg>
+            <span class="ph-tx">Coming soon</span>
+          </div>
+          <span class="col-cat"><i aria-hidden="true"></i>コラム</span>
+          <h4>小さな会社こそ、広報を始めるべき3つの理由</h4>
+          <span class="col-date">2026.04.18</span>
+        </a>
+        <a href="#" class="col-card">
+          <div class="col-thumb">
+            <svg class="ph-ic" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2"/><circle cx="8.5" cy="10" r="1.7"/><path d="M3.5 17l4.5-4.5 3.5 3.5 3.5-3.5 5.5 5.5"/></svg>
+            <span class="ph-tx">Coming soon</span>
+          </div>
+          <span class="col-cat"><i aria-hidden="true"></i>コラム</span>
+          <h4>採用広報のはじめ方 — 文化を言葉にする</h4>
+          <span class="col-date">2026.04.05</span>
         </a>
       </div>
+      <p class="col-note reveal">＊コラムのサムネイル画像は今後ご用意します（管理画面からいつでも差し替え可能です）。</p>
 
-      <p class="wp-note reveal"><b>＊この一覧は、WordPress管理画面からどなたでも追加・編集できます。</b>　カテゴリ分け・画像付き・予約投稿・記事内検索に対応し、専門知識がなくても運用いただけます。</p>
+      <!-- CMS編集の案内 -->
+      <div class="cms-note reveal">
+        <p><b>お知らせ・コラムは、管理画面からどなたでも追加・編集できます。</b><br>画像付き投稿・カテゴリ分け・予約投稿・記事内検索に対応。専門知識は不要です。</p>
+        <a href="admin/" class="btn-cms">編集画面のデモを見る →</a>
+      </div>
     </div>
   </section>
 
@@ -555,7 +588,7 @@
         <nav class="foot-nav" aria-label="フッターナビゲーション">
           <a href="#services">提供サービス</a>
           <a href="#philosophy">自社の考え</a>
-          <a href="#news">広報PRコンテンツ</a>
+          <a href="#news">お知らせ・コラム</a>
           <a href="#company">会社概要</a>
           <a href="#contact">お問い合わせ</a>
         </nav>
