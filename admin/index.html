@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>emvalues｜サイト管理画面（デモ）</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%231d2327'/><circle cx='9' cy='16' r='2.4' fill='%23A8694A'/><rect x='13' y='15' width='12' height='2' fill='%232271b1'/></svg>" />
+<style>
+  :root{
+    --dark:#1d2327; --dark2:#2c3338; --blue:#2271b1; --blueD:#135e96;
+    --bg:#f0f0f1; --text:#3c434a; --muted:#646970; --border:#c3c4c7; --line:#dcdcde;
+    --green:#00a32a; --greenD:#008a20; --clay:#A8694A; --paper:#fbf8f3;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,"Hiragino Kaku Gothic ProN","Meiryo","Yu Gothic",sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5;}
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{color:var(--blueD);text-decoration:underline;}
+
+  /* demo ribbon */
+  .demo-ribbon{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--clay);color:#fff;font-size:12px;text-align:center;padding:5px 12px;letter-spacing:.04em;}
+
+  /* admin bar */
+  .adminbar{position:fixed;top:26px;left:0;right:0;height:36px;background:var(--dark);color:#f0f0f1;display:flex;align-items:center;justify-content:space-between;padding:0 14px;z-index:90;font-size:13px;}
+  .adminbar .left{display:flex;align-items:center;gap:16px;}
+  .adminbar .brand{display:flex;align-items:center;gap:8px;font-weight:600;}
+  .adminbar .brand i{width:7px;height:7px;border-radius:50%;background:var(--clay);display:inline-block;}
+  .adminbar .view-site{color:#a7aaad;display:flex;align-items:center;gap:5px;}
+  .adminbar .view-site:hover{color:#72aee6;text-decoration:none;}
+  .adminbar .right{color:#c3c4c7;display:flex;align-items:center;gap:8px;}
+  .adminbar .avatar{width:22px;height:22px;border-radius:50%;background:var(--clay);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+
+  /* layout */
+  .layout{display:flex;padding-top:62px;min-height:100vh;}
+  .sidebar{width:160px;background:var(--dark);color:#f0f0f1;flex:none;padding-top:6px;min-height:calc(100vh - 62px);}
+  .menu-item{display:flex;align-items:center;gap:9px;padding:9px 12px;color:#f0f0f1;cursor:pointer;font-size:14px;border:0;background:none;width:100%;text-align:left;}
+  .menu-item svg{width:18px;height:18px;flex:none;opacity:.85;}
+  .menu-item:hover{background:var(--blue);color:#fff;text-decoration:none;}
+  .menu-item.active{background:var(--blue);color:#fff;font-weight:600;}
+  .menu-item.active svg{opacity:1;}
+  .menu-sep{height:1px;background:#3a4046;margin:6px 0;}
+
+  .content{flex:1;padding:20px 26px 60px;min-width:0;}
+
+  /* list view */
+  .page-head{display:flex;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap;}
+  .page-head h1{font-size:23px;font-weight:400;color:#1d2327;}
+  .btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--blue);background:#fff;color:var(--blue);padding:5px 12px;border-radius:3px;font-size:13px;cursor:pointer;line-height:1.7;}
+  .btn:hover{background:#f0f6fc;text-decoration:none;}
+  .btn-add{border:1px solid var(--border);color:#2271b1;}
+  .btn-primary{background:var(--blue);border:1px solid var(--blueD);color:#fff;}
+  .btn-primary:hover{background:var(--blueD);color:#fff;}
+  .btn-pub{background:var(--green);border:1px solid var(--greenD);color:#fff;font-size:15px;padding:9px 0;width:100%;justify-content:center;font-weight:600;}
+  .btn-pub:hover{background:var(--greenD);color:#fff;}
+
+  .tabs{display:flex;gap:2px;margin-bottom:-1px;}
+  .tab{padding:8px 16px;border:1px solid transparent;border-bottom:none;background:none;cursor:pointer;font-size:13px;color:var(--muted);border-radius:4px 4px 0 0;}
+  .tab.active{background:#fff;border-color:var(--border);color:#1d2327;font-weight:600;}
+
+  .card{background:#fff;border:1px solid var(--border);border-radius:3px;}
+  table{width:100%;border-collapse:collapse;background:#fff;}
+  thead th{text-align:left;font-size:13px;font-weight:600;color:#1d2327;padding:11px 12px;border-bottom:1px solid var(--border);background:#fff;}
+  tbody td{padding:12px;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:middle;}
+  tbody tr:hover{background:#f6f7f7;}
+  .post-title{font-weight:600;color:var(--blue);cursor:pointer;font-size:14px;}
+  .post-title:hover{color:var(--blueD);text-decoration:underline;}
+  .row-actions{font-size:12px;color:var(--muted);margin-top:3px;visibility:hidden;}
+  tbody tr:hover .row-actions{visibility:visible;}
+  .row-actions a{color:var(--blue);}
+  .row-actions .del{color:#b32d2e;}
+  .badge{display:inline-block;font-size:11.5px;padding:2px 9px;border-radius:11px;}
+  .b-pub{background:#e6f4ea;color:#0a7a2f;}
+  .b-draft{background:#f0f0f1;color:#646970;}
+  .b-sched{background:#fcf3e6;color:#9a6700;}
+  .cat-tag{font-size:12px;color:var(--text);}
+  .colcount{color:var(--muted);font-size:12px;margin:10px 2px;}
+
+  /* editor view */
+  .editor-help{background:#f0f6fc;border:1px solid #c5d9ed;border-left:4px solid var(--blue);border-radius:3px;padding:11px 14px;margin-bottom:16px;font-size:13.5px;color:#1d2327;display:flex;gap:10px;align-items:flex-start;}
+  .editor-help b{color:var(--blueD);}
+  .editor-grid{display:grid;grid-template-columns:1fr 270px;gap:20px;align-items:start;}
+  .ed-main{min-width:0;}
+  .title-input{width:100%;font-size:24px;padding:14px 16px;border:1px solid var(--border);border-radius:4px;color:#1d2327;background:#fff;}
+  .title-input::placeholder{color:#a7aaad;}
+  .title-input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 1px var(--blue);}
+  .toolbar{display:flex;gap:4px;flex-wrap:wrap;background:#fff;border:1px solid var(--border);border-bottom:none;border-radius:4px 4px 0 0;padding:7px 8px;margin-top:14px;}
+  .tbtn{border:1px solid transparent;background:none;width:32px;height:30px;border-radius:3px;cursor:pointer;color:#3c434a;font-size:14px;display:flex;align-items:center;justify-content:center;}
+  .tbtn:hover{background:#f0f0f1;border-color:var(--line);}
+  .tbtn.wide{width:auto;padding:0 9px;gap:5px;font-size:13px;}
+  .body-input{width:100%;min-height:280px;font-size:15px;line-height:1.9;padding:16px;border:1px solid var(--border);border-radius:0 0 4px 4px;resize:vertical;color:#1d2327;background:#fff;font-family:inherit;}
+  .body-input:focus{outline:none;border-color:var(--blue);}
+
+  .panel{background:#fff;border:1px solid var(--border);border-radius:3px;margin-bottom:16px;}
+  .panel h3{font-size:13px;font-weight:600;color:#1d2327;padding:10px 12px;border-bottom:1px solid var(--line);}
+  .panel .pbody{padding:12px;}
+  .pub-row{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);margin-bottom:9px;}
+  .pub-row svg{width:16px;height:16px;opacity:.7;}
+  .pub-row b{color:#1d2327;font-weight:600;}
+  .radio-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:13.5px;cursor:pointer;}
+  .radio-row input{accent-color:var(--blue);width:15px;height:15px;}
+  .sched-date{margin:4px 0 8px 23px;}
+  .sched-date input{border:1px solid var(--border);border-radius:3px;padding:5px 7px;font-size:13px;font-family:inherit;}
+  .check-row{display:flex;align-items:center;gap:8px;margin-bottom:9px;font-size:13.5px;cursor:pointer;}
+  .check-row input{accent-color:var(--blue);width:15px;height:15px;}
+  .dropzone{border:1px dashed var(--border);border-radius:4px;padding:18px;text-align:center;color:var(--muted);font-size:12.5px;cursor:pointer;background:#fafafa;}
+  .dropzone:hover{border-color:var(--blue);color:var(--blue);background:#f0f6fc;}
+  .pub-divider{height:1px;background:var(--line);margin:10px 0;}
+  .savedraft{font-size:13px;color:var(--muted);background:none;border:none;cursor:pointer;}
+  .savedraft:hover{color:var(--blue);text-decoration:underline;}
+  .ed-actions{display:flex;align-items:center;justify-content:space-between;margin-top:10px;}
+
+  /* toast */
+  .toast{position:fixed;top:74px;left:50%;transform:translateX(-50%) translateY(-20px);background:#1d2327;color:#fff;padding:13px 20px;border-radius:6px;box-shadow:0 10px 30px rgba(0,0,0,.25);font-size:14px;display:flex;align-items:center;gap:14px;opacity:0;pointer-events:none;transition:.35s cubic-bezier(.16,1,.3,1);z-index:200;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto;}
+  .toast .ok{width:22px;height:22px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;}
+  .toast a{color:#72aee6;}
+
+  .hint{font-size:12px;color:var(--muted);margin-top:5px;}
+  .hidden{display:none !important;}
+
+  @media(max-width:760px){
+    .editor-grid{grid-template-columns:1fr;}
+    .sidebar{width:54px;}
+    .menu-item{justify-content:center;padding:11px 0;font-size:0;gap:0;}
+    .menu-item svg{width:20px;height:20px;}
+  }
+</style>
+</head>
+<body>
+  <div class="demo-ribbon">これは「ご自身でサイトを更新する編集画面」のデモです。記事を書いて「公開する」を押してみてください。</div>
+
+  <!-- admin bar -->
+  <div class="adminbar">
+    <div class="left">
+      <span class="brand"><i></i>emvalues</span>
+      <a class="view-site" href="../" target="_blank" rel="noopener">
+        <svg viewBox="0 0 20 20" width="15" height="15" fill="currentColor"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm5.9 7h-2.5a13 13 0 00-1-4.3A6 6 0 0115.9 9zM10 4c.7 0 1.7 1.8 2 5H8c.3-3.2 1.3-5 2-5zM4.1 9A6 6 0 017.6 4.7 13 13 0 006.6 9H4.1zm0 2h2.5a13 13 0 001 4.3A6 6 0 014.1 11zM10 16c-.7 0-1.7-1.8-2-5h4c-.3 3.2-1.3 5-2 5zm2.4-.7a13 13 0 001-4.3h2.5a6 6 0 01-3.5 4.3z"/></svg>
+        サイトを表示
+      </a>
+    </div>
+    <div class="right">
+      <span>こんにちは、關 文枝 さん</span>
+      <span class="avatar">關</span>
+    </div>
+  </div>
+
+  <div class="layout">
+    <!-- sidebar -->
+    <nav class="sidebar">
+      <button class="menu-item" data-nav="dash">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M3 3h6v6H3V3zm8 0h6v4h-6V3zM3 11h6v6H3v-6zm8 2h6v4h-6v-4z"/></svg>ダッシュボード
+      </button>
+      <button class="menu-item active" data-nav="posts">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M4 3h12v2H4V3zm0 4h12v2H4V7zm0 4h8v2H4v-2zm0 4h8v2H4v-2z"/></svg>投稿
+      </button>
+      <button class="menu-item" data-nav="media">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M3 4h14v12H3V4zm2 2v6l3-3 2 2 3-4 2 5H5zm9 1a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/></svg>メディア
+      </button>
+      <button class="menu-item" data-nav="pages">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M5 2h7l3 3v13H5V2zm7 1.5V6h2.5L12 3.5zM6 8h8v1.5H6V8zm0 3h8v1.5H6V11z"/></svg>固定ページ
+      </button>
+      <button class="menu-item" data-nav="forms">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M3 4h14v12H3V4zm1.5 2L10 10l5.5-4H4.5zM4 7.5V14h12V7.5l-6 4.3-6-4.3z"/></svg>お問い合わせ
+      </button>
+      <div class="menu-sep"></div>
+      <button class="menu-item" data-nav="appearance">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 000 16c1 0 1.5-.6 1.5-1.3 0-.7-.6-1-.6-1.7 0-.6.5-1 1.1-1H14a4 4 0 004-4c0-4.4-3.6-8-8-8zm-4 9a1.2 1.2 0 110-2.4A1.2 1.2 0 016 11zm2.4-3.2A1.2 1.2 0 117 6.4a1.2 1.2 0 011.4 1.4zm4.2 0A1.2 1.2 0 1112 6.4a1.2 1.2 0 011.6 1.4zM14.6 11a1.2 1.2 0 110-2.4 1.2 1.2 0 010 2.4z"/></svg>外観
+      </button>
+      <button class="menu-item" data-nav="settings">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 7a3 3 0 100 6 3 3 0 000-6zm7 3l-1.7-.5a5.7 5.7 0 00-.4-1l.9-1.6-1.4-1.4-1.6.9a5.7 5.7 0 00-1-.4L11 3H9l-.5 1.7a5.7 5.7 0 00-1 .4L6 4.2 4.6 5.6l.9 1.6a5.7 5.7 0 00-.4 1L3 9v2l1.7.5c.1.4.2.7.4 1l-.9 1.6 1.4 1.4 1.6-.9c.3.2.6.3 1 .4L9 17h2l.5-1.7c.4-.1.7-.2 1-.4l1.6.9 1.4-1.4-.9-1.6c.2-.3.3-.6.4-1L17 11V9z"/></svg>設定
+      </button>
+    </nav>
+
+    <!-- content -->
+    <main class="content">
+
+      <!-- LIST VIEW -->
+      <section id="view-list">
+        <div class="page-head">
+          <h1>投稿</h1>
+          <button class="btn btn-add" id="btn-new">＋ 新規追加</button>
+        </div>
+        <div class="tabs">
+          <button class="tab active">お知らせ・ブログ</button>
+        </div>
+        <div class="card">
+          <table>
+            <thead>
+              <tr><th style="width:50%;">タイトル</th><th>カテゴリー</th><th>状態</th><th>日付</th></tr>
+            </thead>
+            <tbody id="post-rows">
+              <!-- rows injected -->
+            </tbody>
+          </table>
+        </div>
+        <p class="colcount" id="colcount"></p>
+      </section>
+
+      <!-- EDITOR VIEW -->
+      <section id="view-edit" class="hidden">
+        <div class="page-head">
+          <h1 id="ed-heading">新しい記事を書く</h1>
+          <a class="btn" id="btn-back" href="javascript:void(0)">← 一覧へ戻る</a>
+        </div>
+
+        <div class="editor-help">
+          <div>
+            <b>かんたんです。</b> ①タイトルを書く ②本文を書く ③右の「公開する」を押す ― これだけ。むずかしい設定は不要です。書きかけは「下書き保存」で残せます。
+          </div>
+        </div>
+
+        <div class="editor-grid">
+          <div class="ed-main">
+            <input class="title-input" id="ed-title" type="text" placeholder="タイトルを入力（例：広報を経営機能として設計するということ）" />
+            <div class="toolbar" aria-hidden="true">
+              <button class="tbtn wide" type="button"><b>見出し</b></button>
+              <button class="tbtn" type="button" title="太字"><b>B</b></button>
+              <button class="tbtn" type="button" title="斜体"><i>I</i></button>
+              <button class="tbtn" type="button" title="下線"><u>U</u></button>
+              <button class="tbtn wide" type="button" title="リンク">🔗 リンク</button>
+              <button class="tbtn wide" type="button" title="画像">🖼 画像</button>
+              <button class="tbtn wide" type="button" title="箇条書き">≡ 箇条書き</button>
+            </div>
+            <textarea class="body-input" id="ed-body" placeholder="ここに本文を書きます。&#10;&#10;ふだん文章を書くのと同じように入力できます。改行や段落もそのまま反映されます。"></textarea>
+            <p class="hint">＊文字を入力するだけ。HTMLなどの知識は要りません。</p>
+          </div>
+
+          <aside class="ed-side">
+            <div class="panel">
+              <h3>公開</h3>
+              <div class="pbody">
+                <div class="pub-row">
+                  <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 8H7V8h2V5h2v5z"/></svg>
+                  状態：<b>下書き</b>
+                </div>
+                <div class="pub-divider"></div>
+                <label class="radio-row"><input type="radio" name="when" checked /> すぐに公開する</label>
+                <label class="radio-row"><input type="radio" name="when" id="r-sched" /> 予約投稿（日時を指定）</label>
+                <div class="sched-date hidden" id="sched"><input type="datetime-local" /></div>
+                <div class="pub-divider"></div>
+                <div class="ed-actions">
+                  <button class="savedraft" id="btn-draft">下書き保存</button>
+                </div>
+                <button class="btn-pub" id="btn-publish" style="margin-top:8px;">公開する</button>
+              </div>
+            </div>
+
+            <div class="panel">
+              <h3>カテゴリー</h3>
+              <div class="pbody">
+                <label class="check-row"><input type="checkbox" checked /> お知らせ</label>
+                <label class="check-row"><input type="checkbox" /> コラム</label>
+                <label class="check-row"><input type="checkbox" /> PR実績</label>
+                <p class="hint" style="margin-top:6px;">＊新しい分類も自由に追加できます。</p>
+              </div>
+            </div>
+
+            <div class="panel">
+              <h3>アイキャッチ画像</h3>
+              <div class="pbody">
+                <div class="dropzone">クリックして画像を選択<br>または ここにドラッグ＆ドロップ</div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- toast -->
+  <div class="toast" id="toast">
+    <span class="ok"><svg viewBox="0 0 20 20" width="13" height="13" fill="#fff"><path d="M8 13.2L4.8 10l-1.3 1.3L8 15.8l8.5-8.5-1.3-1.3z"/></svg></span>
+    <span id="toast-msg">記事を公開しました。</span>
+    <a href="../" target="_blank" rel="noopener">サイトで見る →</a>
+  </div>
+
+<script>
+(function(){
+  var posts = [
+    { t:'サービス内容ページを公開しました', c:'お知らせ', s:'pub', d:'2026/05/28' },
+    { t:'広報を「経営機能」として設計するということ', c:'コラム', s:'pub', d:'2026/05/14',
+      body:'広報・PRは、単なる情報発信やメディア露出のための活動ではありません。\n\n企業が社会に対してどのような価値を提供し、どのような存在として認識されたいのかを伝える、経営に直結するコミュニケーション活動です。emvaluesでは、経営目標に沿った広報・PR戦略を設計し、施策実行まで一気通貫で伴走します。' },
+    { t:'メディアに取り上げられるPRストーリーの作り方', c:'コラム', s:'pub', d:'2026/04/30' },
+    { t:'支援先企業の取り組みがメディアに掲載されました', c:'PR実績', s:'pub', d:'2026/04/12' },
+    { t:'採用広報のはじめ方（書きかけ）', c:'コラム', s:'draft', d:'—' }
+  ];
+
+  var listView = document.getElementById('view-list');
+  var editView = document.getElementById('view-edit');
+  var rows = document.getElementById('post-rows');
+  var toast = document.getElementById('toast');
+
+  function badge(s){
+    if(s==='pub') return '<span class="badge b-pub">公開済み</span>';
+    if(s==='sched') return '<span class="badge b-sched">予約投稿</span>';
+    return '<span class="badge b-draft">下書き</span>';
+  }
+  function render(){
+    rows.innerHTML = posts.map(function(p,i){
+      return '<tr>'+
+        '<td><span class="post-title" data-i="'+i+'">'+p.t+'</span>'+
+          '<div class="row-actions"><a data-i="'+i+'" class="edit">編集</a> ｜ <a href="../" target="_blank">表示</a> ｜ <a class="del">ゴミ箱</a></div></td>'+
+        '<td><span class="cat-tag">'+p.c+'</span></td>'+
+        '<td>'+badge(p.s)+'</td>'+
+        '<td>'+p.d+'</td>'+
+      '</tr>';
+    }).join('');
+    document.getElementById('colcount').textContent = posts.length + '件の項目';
+  }
+  function showList(){ editView.classList.add('hidden'); listView.classList.remove('hidden'); window.scrollTo(0,0); }
+  function openEditor(i){
+    var title = '', body = '';
+    if(typeof i === 'number'){ title = posts[i].t; body = posts[i].body || ''; document.getElementById('ed-heading').textContent='記事を編集'; }
+    else { document.getElementById('ed-heading').textContent='新しい記事を書く'; }
+    document.getElementById('ed-title').value = title;
+    document.getElementById('ed-body').value = body;
+    listView.classList.add('hidden'); editView.classList.remove('hidden'); window.scrollTo(0,0);
+  }
+  function showToast(msg){
+    document.getElementById('toast-msg').textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function(){ toast.classList.remove('show'); }, 3200);
+  }
+
+  rows.addEventListener('click', function(e){
+    var t = e.target.closest('[data-i]');
+    if(t){ openEditor(parseInt(t.getAttribute('data-i'),10)); }
+  });
+  document.getElementById('btn-new').addEventListener('click', function(){ openEditor(null); });
+  document.getElementById('btn-back').addEventListener('click', showList);
+  document.getElementById('r-sched').addEventListener('change', function(){
+    document.getElementById('sched').classList.toggle('hidden', !this.checked);
+  });
+  document.querySelectorAll('input[name=when]').forEach(function(r){
+    r.addEventListener('change', function(){
+      var sched = document.getElementById('r-sched').checked;
+      document.getElementById('sched').classList.toggle('hidden', !sched);
+    });
+  });
+  document.getElementById('btn-publish').addEventListener('click', function(){
+    var title = document.getElementById('ed-title').value.trim() || '無題の記事';
+    var sched = document.getElementById('r-sched').checked;
+    posts.unshift({ t:title, c:'お知らせ', s: sched?'sched':'pub', d: sched?'予約':'2026/06/03' });
+    render(); showList();
+    showToast(sched ? '記事を予約しました。' : '記事を公開しました。');
+  });
+  document.getElementById('btn-draft').addEventListener('click', function(){
+    var title = document.getElementById('ed-title').value.trim() || '無題の記事';
+    posts.unshift({ t:title+'（書きかけ）', c:'お知らせ', s:'draft', d:'—' });
+    render(); showList(); showToast('下書きを保存しました。');
+  });
+
+  // sidebar: only 投稿 is functional in this demo; others just keep highlight
+  document.querySelectorAll('.menu-item').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.menu-item').forEach(function(x){ x.classList.remove('active'); });
+      b.classList.add('active');
+      if(b.getAttribute('data-nav')==='posts'){ showList(); }
+    });
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
