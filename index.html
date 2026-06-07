@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>emvalues合同会社｜広報・PRで事業成長を加速。企業の価値を、世の中の共感に。</title>
 <meta name="description" content="emvalues（エンヴァリューズ）合同会社 — 経営戦略と連動した戦略的PR。広報・PR支援／マーケティング戦略／ブランディング／コンテンツ企画・制作。恵比寿のPRコンサルティング。" />
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23FBF8F3'/><circle cx='8' cy='16' r='2.2' fill='%23A8694A'/><circle cx='13.5' cy='16' r='1.6' fill='%23A8694A'/><rect x='17' y='15' width='9' height='2' rx='1' fill='%2327486B'/></svg>" />
+<link rel="icon" type="image/png" href="assets/favicon.png" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="emvalues合同会社｜広報・PRで事業成長を加速。" />
 <meta property="og:description" content="企業の価値を、世の中の共感に。経営戦略と連動した戦略的PRを、設計から実行まで。恵比寿のPRコンサルティング emvalues合同会社。" />
@@ -16,12 +16,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Cormorant:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --paper:#FBF8F3; --paper-2:#F4EEE3; --paper-3:#EADFCF;
-    --ink:#26221C; --ink-soft:#6B6258; --ink-faint:#79705F;
-    --ai:#2C6E54; --ai-deep:#1E4F3C;
-    --clay:#A8694A; --clay-deep:#985A3C; --clay-soft:#C98A6B;
-    --line:#E2D8C8; --line-on-dark:rgba(244,238,227,.16);
-    --ink-rev:#EFE8DC; --white:#FFFFFF;
+    /* 白ベース＋フォレストグリーン単色アクセント（ブランドガイド準拠） */
+    --paper:#FFFFFF; --paper-2:#F5F8F6; --paper-3:#EAF1EC;
+    --ink:#313333; --ink-soft:#5C615E; --ink-faint:#8B918D;
+    --ai:#2B8B5D; --ai-deep:#1F6E47;
+    --clay:#7FB89A; --clay-deep:#2B8B5D; --clay-soft:#A9D0BC;
+    --line:#E7ECE8; --line-on-dark:rgba(244,248,246,.16);
+    --ink-rev:#EAF1EC; --white:#FFFFFF;
     --mincho:"Shippori Mincho B1", serif;
     --gothic:"Zen Kaku Gothic New", sans-serif;
     --eng:"Cormorant", serif;
@@ -84,13 +85,12 @@
   .ribbon{background:var(--ink);color:#D9CFBE;font-size:11.5px;letter-spacing:.06em;text-align:center;padding:7px 14px;font-weight:300;}
 
   /* ---- header ---- */
-  header{position:sticky;top:0;z-index:100;background:rgba(251,248,243,.86);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--line);transition:height .3s var(--ease);}
+  header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.88);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--line);transition:height .3s var(--ease);}
   .nav{display:flex;align-items:center;justify-content:space-between;height:80px;transition:height .3s var(--ease);}
   header.shrink .nav{height:66px;}
-  .brand{display:flex;flex-direction:column;gap:2px;line-height:1;}
-  .brand .bmark{font-family:var(--mincho);font-weight:700;font-size:21px;letter-spacing:.04em;color:var(--ink);display:flex;align-items:center;gap:7px;}
-  .brand .bmark i{width:6px;height:6px;border-radius:50%;background:var(--clay);display:inline-block;font-style:normal;}
-  .brand .bsub{font-family:var(--eng);font-size:10px;letter-spacing:.2em;color:var(--ink-faint);text-transform:uppercase;}
+  .brand{display:flex;align-items:center;line-height:1;}
+  .brand .brand-logo{height:32px;width:auto;display:block;transition:height .3s var(--ease);}
+  header.shrink .brand .brand-logo{height:27px;}
   .menu{display:flex;gap:30px;align-items:center;}
   .menu .mi{position:relative;font-size:13.5px;color:var(--ink-soft);font-weight:500;letter-spacing:.04em;padding:6px 0;transition:color .25s;}
   .menu .mi::after{content:"";position:absolute;left:0;bottom:0;height:1.5px;width:100%;background:var(--ai);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease);}
@@ -123,7 +123,7 @@
   .hero-card .lead{font-family:var(--mincho);font-size:16.5px;line-height:2;color:var(--ink-soft);max-width:30em;margin-bottom:38px;}
   .hero-actions{display:flex;gap:24px;align-items:center;flex-wrap:wrap;}
   .hero-photo{position:relative;background-color:var(--ink);background-image:url("assets/site-hero.jpg");background-size:cover;background-position:center;overflow:hidden;}
-  .hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(251,248,243,.25),transparent 30%);}
+  .hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.30),transparent 32%);}
   .hero-photo .zoom{position:absolute;inset:0;background:inherit;animation:slowzoom 16s var(--ease) forwards;}
   @keyframes slowzoom{from{transform:scale(1);}to{transform:scale(1.05);}}
   .hero-index{position:absolute;left:clamp(28px,4vw,64px);bottom:34px;writing-mode:vertical-rl;font-family:var(--eng);font-size:12px;letter-spacing:.3em;color:var(--ink-faint);z-index:3;}
@@ -182,6 +182,25 @@
   .phil-index{writing-mode:vertical-rl;justify-self:end;align-self:start;font-family:var(--mincho);font-size:13px;letter-spacing:.3em;color:var(--ink-faint);display:flex;align-items:center;gap:14px;height:100%;padding-top:6px;}
   .phil-index .en{font-family:var(--eng);letter-spacing:.2em;color:var(--clay);text-transform:uppercase;font-size:11px;}
 
+  /* ---- profile (代表紹介) ---- */
+  #profile{background:var(--paper-2);}
+  .profile{display:grid;grid-template-columns:5fr 7fr;gap:clamp(36px,5vw,72px);align-items:start;}
+  .profile-photo{position:relative;aspect-ratio:4/5;border-radius:4px;overflow:hidden;background:linear-gradient(160deg,#F0F6F2,#E4EEE8);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;}
+  .profile-photo .ph-mark{color:var(--ai);opacity:.32;}
+  .profile-photo .ph-cap{position:absolute;left:0;right:0;bottom:0;padding:12px 16px;background:rgba(255,255,255,.78);backdrop-filter:blur(2px);font-size:11.5px;letter-spacing:.04em;color:var(--ink-faint);text-align:center;border-top:1px solid var(--line);}
+  .profile-body .name{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin:6px 0 6px;}
+  .profile-body .name b{font-family:var(--mincho);font-weight:600;font-size:clamp(28px,3.4vw,38px);letter-spacing:.06em;color:var(--ink);}
+  .profile-body .name .en{font-family:var(--eng);font-style:italic;font-size:18px;letter-spacing:.08em;color:var(--ink-faint);}
+  .profile-body .role{font-size:13px;letter-spacing:.1em;color:var(--ai);font-weight:500;}
+  .profile-body .p-lead{font-family:var(--mincho);font-size:16px;line-height:2;color:var(--ink);margin:22px 0 34px;max-width:36em;}
+  .cv{border-top:1px solid var(--line);}
+  .cv-item{display:grid;grid-template-columns:128px 1fr;gap:24px;padding:20px 4px;border-bottom:1px solid var(--line);align-items:start;}
+  .cv-item .yr{font-family:var(--eng);font-size:15px;letter-spacing:.06em;color:var(--ai);font-weight:500;padding-top:2px;}
+  .cv-item .ct h4{font-family:var(--mincho);font-weight:600;font-size:15.5px;color:var(--ink);letter-spacing:.03em;margin-bottom:6px;}
+  .cv-item .ct p{font-size:13.5px;line-height:1.9;color:var(--ink-soft);max-width:40em;}
+  .cv-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;}
+  .cv-tags span{font-size:12px;letter-spacing:.04em;color:var(--ai-deep);background:rgba(43,139,93,.08);border:1px solid rgba(43,139,93,.2);border-radius:999px;padding:7px 15px;}
+
   /* ---- news ---- */
   .news-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;margin-bottom:34px;}
   .news-search{position:relative;margin-bottom:30px;max-width:340px;}
@@ -200,13 +219,13 @@
   .news-arw{color:var(--ink-faint);transition:transform .3s var(--ease),color .3s;}
   .news-item:hover .news-arw{color:var(--ai);transform:translateX(4px);}
   /* PR thumbs */
-  /* コラム grid（サムネイルは今後作成 — プレースホルダ表示） */
+  /* コラム grid */
   .col-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-bottom:16px;}
   .col-card{display:block;}
-  .col-thumb{aspect-ratio:16/11;border-radius:4px;background:var(--paper-2);border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;margin-bottom:14px;transition:transform .3s var(--ease),box-shadow .3s var(--ease),background .3s var(--ease);}
-  .col-card:hover .col-thumb{background:var(--paper-3);transform:translateY(-3px);box-shadow:0 16px 32px -24px rgba(38,34,28,.55);}
-  .col-thumb .ph-ic{color:var(--ai);opacity:.45;}
-  .col-thumb .ph-tx{font-family:var(--eng);font-size:9.5px;letter-spacing:.18em;color:var(--ink-faint);text-transform:uppercase;}
+  .col-thumb{aspect-ratio:16/11;border-radius:4px;overflow:hidden;background:var(--paper-2);border:1px solid var(--line);margin-bottom:14px;transition:transform .3s var(--ease),box-shadow .3s var(--ease);}
+  .col-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s var(--ease);}
+  .col-card:hover .col-thumb{transform:translateY(-3px);box-shadow:0 16px 32px -24px rgba(38,34,28,.4);}
+  .col-card:hover .col-thumb img{transform:scale(1.04);}
   .col-cat{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;letter-spacing:.06em;color:var(--ai);}
   .col-cat i{width:5px;height:5px;border-radius:50%;background:var(--ai);display:inline-block;flex:none;}
   .col-card h4{font-family:var(--mincho);font-weight:500;font-size:15px;color:var(--ink);line-height:1.6;margin:8px 0 7px;transition:color .2s;}
@@ -255,9 +274,8 @@
   /* ---- footer ---- */
   footer{background:var(--paper);border-top:1px solid var(--line);padding:56px 0 30px;position:relative;overflow:hidden;}
   .foot-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px;margin-bottom:42px;}
-  .foot-brand .bmark{font-family:var(--mincho);font-weight:700;font-size:22px;letter-spacing:.04em;color:var(--ink);display:flex;align-items:center;gap:7px;}
-  .foot-brand .bmark i{width:6px;height:6px;border-radius:50%;background:var(--clay);display:inline-block;}
-  .foot-brand p{font-size:12.5px;color:var(--ink-soft);margin-top:12px;font-weight:300;letter-spacing:.08em;}
+  .foot-brand .foot-logo{height:30px;width:auto;display:block;}
+  .foot-brand p{font-size:12.5px;color:var(--ink-soft);margin-top:14px;font-weight:300;letter-spacing:.08em;}
   .foot-nav{display:flex;flex-direction:column;gap:12px;}
   .foot-nav a{font-size:13.5px;color:var(--ink-soft);letter-spacing:.04em;}
   .foot-nav a:hover{color:var(--ai);}
@@ -278,6 +296,10 @@
     .phil{grid-template-columns:1fr;}
     .phil-photo{aspect-ratio:16/11;}
     .phil-index{display:none;}
+    .profile{grid-template-columns:1fr;}
+    .profile-photo{aspect-ratio:4/3;max-width:420px;}
+    .cv-item{grid-template-columns:1fr;gap:6px;}
+    .cv-item .yr{font-size:13px;}
     .comp-grid,.contact-grid{grid-template-columns:1fr;}
     .col-grid{grid-template-columns:1fr 1fr;}
     .cms-note{flex-direction:column;align-items:flex-start;}
@@ -295,18 +317,18 @@
 </head>
 <body>
   <a class="skip" href="#main">本文へスキップ</a>
-  <div class="ribbon">デザイン提案サンプル｜現サイト（emvalues.com）の写真・文章を反映し、WordPressで再構築したイメージです</div>
+  <div class="ribbon">デザイン提案サンプル｜現サイト（emvalues.com）の写真・文章をもとに、リニューアル後のイメージを再現したものです</div>
 
   <!-- HEADER -->
   <header id="header">
     <div class="wrap nav">
       <a href="#top" class="brand" aria-label="emvalues合同会社 トップへ">
-        <span class="bmark">em<i></i>values</span>
-        <span class="bsub">Emvalues LLC</span>
+        <img src="assets/logo-horizontal.png" alt="emvalues" class="brand-logo" />
       </a>
       <nav class="menu" aria-label="メインナビゲーション">
         <a class="mi" href="#services">提供サービス</a>
         <a class="mi" href="#philosophy">自社の考え</a>
+        <a class="mi" href="#profile">代表紹介</a>
         <a class="mi" href="#news">お知らせ・コラム</a>
         <a class="mi" href="#company">会社概要</a>
         <a class="navcta" href="#contact">お問い合わせ</a>
@@ -324,6 +346,7 @@
       <button class="dclose" data-close aria-label="メニューを閉じる">×</button>
       <a href="#services">提供サービス<span class="en">Services</span></a>
       <a href="#philosophy">自社の考え<span class="en">Philosophy</span></a>
+      <a href="#profile">代表紹介<span class="en">Representative</span></a>
       <a href="#news">お知らせ・コラム<span class="en">News &amp; Column</span></a>
       <a href="#company">会社概要<span class="en">Company</span></a>
       <a href="#contact">お問い合わせ<span class="en">Contact</span></a>
@@ -413,7 +436,7 @@
         </div>
       </article>
 
-      <p class="wp-note reveal"><b>＊上記のほか、ブランド設計・リブランディング、危機管理広報、採用広報、インターナルコミュニケーション、広報部門の立ち上げ・体制構築まで対応します。</b>　各サービスの掲載内容はWordPressから自由に追加・編集できます。</p>
+      <p class="wp-note reveal"><b>＊上記のほか、ブランド設計・リブランディング、危機管理広報、採用広報、インターナルコミュニケーション、広報部門の立ち上げ・体制構築まで対応します。</b>　各サービスの掲載内容は管理画面から自由に追加・編集できます。</p>
     </div>
   </section>
 
@@ -433,6 +456,67 @@
         </div>
       </div>
       <div class="phil-index reveal" aria-hidden="true"><span class="en">Philosophy</span><span>私たちの考え</span></div>
+    </div>
+  </section>
+
+  <!-- PROFILE / 代表紹介 -->
+  <section id="profile" class="pad-lg">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="l"><span class="sec-tag">Representative</span></div>
+        <div>
+          <h2>代表紹介</h2>
+          <p class="sec-lead">編集と事業会社広報の両面で培った実務経験をもとに、経営に資する広報・PRを設計・実行します。</p>
+        </div>
+      </div>
+      <div class="profile">
+        <div class="profile-photo reveal" role="img" aria-label="代表社員 關文枝の写真（準備中）">
+          <svg class="ph-mark" width="92" height="92" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><circle cx="12" cy="8.4" r="4"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>
+          <span class="ph-cap">代表写真はご用意でき次第、差し替えいたします</span>
+        </div>
+        <div class="profile-body reveal">
+          <span class="role">代表社員</span>
+          <div class="name"><b>關 文枝</b><span class="en">Fumie Seki</span></div>
+          <p class="p-lead">「企業の価値を、世の中の共感に。」<br>露出をつくることが広報の目的ではありません。企業が社会にどんな価値を届け、どんな存在として認識されたいのか——その芯を言葉にし、経営と地続きのコミュニケーションとして設計・実行することを大切にしています。</p>
+          <div class="cv">
+            <div class="cv-item">
+              <span class="yr">編集者として</span>
+              <div class="ct">
+                <h4>「伝わる言葉」を磨く</h4>
+                <p>雑誌・書籍の企画編集に従事。読み手の心が動く切り口づくりと、情報を物語へと組み立てる編集の技術を培う。</p>
+              </div>
+            </div>
+            <div class="cv-item">
+              <span class="yr">事業会社へ</span>
+              <div class="ct">
+                <h4>広報・マーケティングの現場で実務を重ねる</h4>
+                <p>スタートアップから上場企業まで、広報戦略の立案・メディアリレーション・危機管理広報を担当。事業フェーズに応じたコミュニケーション設計を実践。</p>
+              </div>
+            </div>
+            <div class="cv-item">
+              <span class="yr">部門責任者</span>
+              <div class="ct">
+                <h4>広報部門の立ち上げ・組織づくりを主導</h4>
+                <p>広報責任者・部門長として、ゼロからの体制構築と運用の仕組み化をリード。経営層と並走しながら、広報を「経営機能」として根づかせる。</p>
+              </div>
+            </div>
+            <div class="cv-item">
+              <span class="yr">2026</span>
+              <div class="ct">
+                <h4>emvalues合同会社を設立</h4>
+                <p>代表社員に就任。経営戦略と連動した戦略的PRを、設計から実行まで一気通貫で支援するコンサルタントとして独立。</p>
+              </div>
+            </div>
+          </div>
+          <div class="cv-tags" aria-label="得意領域">
+            <span>広報・PR戦略設計</span>
+            <span>メディアリレーション</span>
+            <span>危機管理広報</span>
+            <span>広報組織の立ち上げ</span>
+            <span>採用広報・インナーコミュニケーション</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -478,43 +562,31 @@
       </div>
       <div class="col-grid reveal">
         <a href="#" class="col-card">
-          <div class="col-thumb">
-            <svg class="ph-ic" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2"/><circle cx="8.5" cy="10" r="1.7"/><path d="M3.5 17l4.5-4.5 3.5 3.5 3.5-3.5 5.5 5.5"/></svg>
-            <span class="ph-tx">Coming soon</span>
-          </div>
+          <div class="col-thumb"><img src="assets/col-1.png" alt="" loading="lazy" /></div>
           <span class="col-cat"><i aria-hidden="true"></i>コラム</span>
           <h4>広報を「経営機能」として設計するということ</h4>
           <span class="col-date">2026.05.14</span>
         </a>
         <a href="#" class="col-card">
-          <div class="col-thumb">
-            <svg class="ph-ic" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2"/><circle cx="8.5" cy="10" r="1.7"/><path d="M3.5 17l4.5-4.5 3.5 3.5 3.5-3.5 5.5 5.5"/></svg>
-            <span class="ph-tx">Coming soon</span>
-          </div>
+          <div class="col-thumb"><img src="assets/col-2.png" alt="" loading="lazy" /></div>
           <span class="col-cat"><i aria-hidden="true"></i>コラム</span>
           <h4>メディアに取り上げられるPRストーリーの作り方</h4>
           <span class="col-date">2026.04.30</span>
         </a>
         <a href="#" class="col-card">
-          <div class="col-thumb">
-            <svg class="ph-ic" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2"/><circle cx="8.5" cy="10" r="1.7"/><path d="M3.5 17l4.5-4.5 3.5 3.5 3.5-3.5 5.5 5.5"/></svg>
-            <span class="ph-tx">Coming soon</span>
-          </div>
+          <div class="col-thumb"><img src="assets/col-3.png" alt="" loading="lazy" /></div>
           <span class="col-cat"><i aria-hidden="true"></i>コラム</span>
           <h4>小さな会社こそ、広報を始めるべき3つの理由</h4>
           <span class="col-date">2026.04.18</span>
         </a>
         <a href="#" class="col-card">
-          <div class="col-thumb">
-            <svg class="ph-ic" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2"/><circle cx="8.5" cy="10" r="1.7"/><path d="M3.5 17l4.5-4.5 3.5 3.5 3.5-3.5 5.5 5.5"/></svg>
-            <span class="ph-tx">Coming soon</span>
-          </div>
+          <div class="col-thumb"><img src="assets/col-4.png" alt="" loading="lazy" /></div>
           <span class="col-cat"><i aria-hidden="true"></i>コラム</span>
           <h4>採用広報のはじめ方 — 文化を言葉にする</h4>
           <span class="col-date">2026.04.05</span>
         </a>
       </div>
-      <p class="col-note reveal">＊コラムのサムネイル画像は今後ご用意します（管理画面からいつでも差し替え可能です）。</p>
+      <p class="col-note reveal">＊サムネイルはイメージサンプルです。実際の記事・画像は管理画面からいつでも追加・差し替えできます。</p>
 
       <!-- CMS編集の案内 -->
       <div class="cms-note reveal">
@@ -536,7 +608,7 @@
             <tr><th>代表社員</th><td>關 文枝（Fumie Seki）</td></tr>
             <tr><th>所在地</th><td>〒150-0022<br>東京都渋谷区恵比寿南1-4-2<br>紀伊國屋ビル4F</td></tr>
             <tr><th>事業内容</th><td>広報・PR支援／マーケティング戦略支援／ブランディング戦略支援／コンテンツ企画・制作支援</td></tr>
-            <tr><th>代表略歴</th><td>編集者を経て、企業広報・マーケティング領域に長年従事。事業会社の広報責任者・部門長としての実務経験をもとに、経営戦略と連動した広報・PRを設計・実行するコンサルタントとして2026年に独立。<small>スタートアップから上場企業まで、広報戦略立案・メディアリレーション・危機管理広報・広報組織の立ち上げ等を支援。</small></td></tr>
+            <tr><th>設立</th><td>2026年</td></tr>
           </tbody>
         </table>
       </div>
@@ -582,12 +654,13 @@
     <div class="wrap">
       <div class="foot-top">
         <div class="foot-brand">
-          <div class="bmark">em<i></i>values</div>
+          <img src="assets/logo-horizontal.png" alt="emvalues" class="foot-logo" />
           <p>Emvalues LLC ／ 東京都渋谷区恵比寿南</p>
         </div>
         <nav class="foot-nav" aria-label="フッターナビゲーション">
           <a href="#services">提供サービス</a>
           <a href="#philosophy">自社の考え</a>
+          <a href="#profile">代表紹介</a>
           <a href="#news">お知らせ・コラム</a>
           <a href="#company">会社概要</a>
           <a href="#contact">お問い合わせ</a>
@@ -623,7 +696,7 @@
     window.addEventListener('scroll', onScroll, { passive:true }); onScroll();
 
     // nav current-section highlight
-    var sections = ['services','philosophy','news','company','contact'];
+    var sections = ['services','philosophy','profile','news','company','contact'];
     var miMap = {};
     document.querySelectorAll('.menu .mi').forEach(function(a){
       var id = a.getAttribute('href').slice(1); miMap[id] = a;
